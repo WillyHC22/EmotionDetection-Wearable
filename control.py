@@ -6,10 +6,10 @@ class MovementControl():
     def __init__(self, servo):
         self.servo = servo
     def Anger(self):
-        pass
+        print("You look angry !")
     def Sadness(self):
-        pass
+        print("You look sad... ):")
     def Neutral(self):
-        pass
+        print("You look neutral.")
     def Happy(self):
-        pass
+        print("You look happy ! =)")

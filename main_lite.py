@@ -40,19 +40,20 @@ def brain(raw, x, y, w, h):
 
 print('Loading ..')
 
-f = tf.lite.Interpreter("models/model_optimized.tflite")
+f = tf.lite.Interpreter("/home/pi/Desktop/CAFA_Wearable/models/model_optimized.tflite")
 f.allocate_tensors()
 i = f.get_input_details()[0]
 o = f.get_output_details()[0]
 
 print('Load Success')
 
-cascPath = "haarcascade_frontalface_default.xml"
+cascPath = "/home/pi/Desktop/CAFA_Wearable/haarcascade_frontalface_default.xml"
 
 faceCascade = cv2.CascadeClassifier(cascPath)
 
 
-cap = cv2.VideoCapture(0)
+#cap = cv2.CaptureVideo(-1, cv2.CAP_V4L2)
+cap = cv2.VideoCapture(-1)
 ai = 'anger'
 img = np.zeros((200, 200, 3))
 ct = 0
@@ -81,7 +82,7 @@ while(True):
             ct = 0
 
     # Display the resulting frame
-    cv2.imshow('frame',frame)
+    #cv2.imshow('frame',frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
