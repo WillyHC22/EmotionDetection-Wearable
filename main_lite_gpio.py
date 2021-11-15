@@ -3,7 +3,7 @@ import cv2
 import tensorflow as tf
 import numpy as np
 
-
+from utils.parser import get_parser
 from control import MovementControl
 import RPi.GPIO as GPIO
 import time
@@ -54,8 +54,10 @@ print('Load Success !')
 
 ###
 print('Setting GPIO...')
+args = get_parser()
 #Use pin 40
-servo_pin = 12
+servo_pin = args["servo_pin"]
+#servo_pin = 12
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(servo_pin, GPIO.OUT)
 servo = GPIO.PWM(servo_pin, 50)
@@ -96,7 +98,8 @@ while(True):
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), 2)
         cv2.putText(frame, ai, (x, y-5), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255), 2, cv2.LINE_AA)
         ## Change here for time between updates
-        if ct > 3:
+        #if ct > 3
+        if ct > args["update_interval"]:
             ai = brain(gray, x, y, w, h)
             ## Mechanical move here 
             if ai == "sadness":
@@ -115,6 +118,9 @@ while(True):
         break
 
 # When everything done, release the capture
+servo.stop()
+GPIO.cleanup()
+
 cap.release()
 cv2.destroyAllWindows()
 
