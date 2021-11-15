@@ -1,9 +1,11 @@
 import time
+from utils.parser import get_parser
 import RPi.GPIO as GPIO
 
 ##Testing GPIO
-
-servo_pin = 40
+args = get_parser()
+servo_pin = args["servo_pin"]
+#servo_pin = 40
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(servo_pin, GPIO.OUT)
 servo = GPIO.PWM(servo_pin, 50)
@@ -13,17 +15,22 @@ servo.start(0)
 
 duty = 2
 
-while duty <= 12:
-    servo.ChangeDutyCycle(duty)
-    time.sleep(1)
-    duty += 1
+time_sleep = args["time_sleep"]
 
-    ##Test stabilize
-    # servo.ChangeDutyCycle(duty)
-    # time.sleep(0.3)
-    # servo.ChangeDutyCycle(0)
-    # time.sleep(0.7)
-    # duty += 1
+
+if args["stabilize"]:
+    #Test stabilize
+    while duty <= 12:
+        servo.ChangeDutyCycle(duty)
+        time.sleep(0.3)
+        servo.ChangeDutyCycle(0)
+        time.sleep(0.7)
+        duty += 1
+else:
+    while duty <= 12:
+        servo.ChangeDutyCycle(duty)
+        time.sleep(time_sleep)
+        duty += 1
 
 print("Reset position")
 servo.ChangeDutyCycle(2)
