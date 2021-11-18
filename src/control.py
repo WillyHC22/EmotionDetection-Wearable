@@ -32,7 +32,8 @@ class MovementControl():
         self.servo3.start(init_duty)
         self.servo4.start(init_duty)
 
-    def rotation(self, duty, speed):
+    def rotation(self, angle, speed):
+        duty = (1./18.)*angle + 2.
         self.servo1.ChangeDutyCycle(duty)
         self.servo2.ChangeDutyCycle(duty)
         self.servo3.ChangeDutyCycle(duty)
@@ -47,14 +48,20 @@ class MovementControl():
     def Sadness(self):
         self.start_servo()
         print("You look sad... ):")
+        # The -120 should depend on positioning. 
         for angle in range(120):
             self.rotation(angle, "slow")
         
     def Happy(self):
         self.start_servo()
         print("You look happy ! =)")
+        for angle in range(120):
+            self.rotation(angle, "medium")
 
     def Anger(self):
         self.start_servo()
         print("You look angry !")
+        # TO-DO : Add trembling
+        for angle in range(40):
+            self.rotation(angle, "fast")
 
