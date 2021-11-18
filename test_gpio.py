@@ -1,11 +1,10 @@
 import time
-from utils.parser import get_parser
-import RPi.GPIO as GPIO
+from utils.argparser import get_parser
+#import RPi.GPIO as GPIO
 
 ##Testing GPIO
 args = get_parser()
 servo_pin = args["servo_pin"]
-#servo_pin = 40
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(servo_pin, GPIO.OUT)
 servo = GPIO.PWM(servo_pin, 50)
