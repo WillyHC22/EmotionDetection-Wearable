@@ -3,10 +3,12 @@ import cv2
 import tensorflow as tf
 import numpy as np
 
-from utils.parser import get_parser
+from utils.argparser import get_parser
 from control import MovementControl
 import RPi.GPIO as GPIO
 import time
+
+args = get_parser()
 
 def crop_center(img, x, y, w, h):    
     return img[y:y+h,x:x+w]
@@ -52,22 +54,6 @@ o = f.get_output_details()[0]
 
 print('Load Success !')
 
-###
-print('Setting GPIO...')
-args = get_parser()
-#Use pin 40
-servo_pin = args["servo_pin"]
-#servo_pin = 12
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(servo_pin, GPIO.OUT)
-servo = GPIO.PWM(servo_pin, 50)
-
-print('Connecting to servo...')
-servo.start(0)
-duty = 2
-control = MovementControl(servo)
-###
-
 cascPath = "/home/pi/Desktop/CAFA_Wearable/haarcascade_frontalface_default.xml"
 
 faceCascade = cv2.CascadeClassifier(cascPath)
@@ -100,6 +86,10 @@ while(True):
         ## Change here for time between updates
         #if ct > 3
         if ct > args["update_interval"]:
+
+            #print('Connecting to servo...')
+            control = MovementControl(args)
+
             ai = brain(gray, x, y, w, h)
             ## Mechanical move here 
             if ai == "sadness":
