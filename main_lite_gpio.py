@@ -4,9 +4,8 @@ import tensorflow as tf
 import numpy as np
 
 from utils.argparser import get_parser
-from control import MovementControl
-import RPi.GPIO as GPIO
-import time
+from src.control import MovementControl
+
 
 args = get_parser()
 
@@ -94,8 +93,6 @@ while(True):
             ## Mechanical move here 
             if ai == "sadness":
                 control.Sadness()
-            elif ai == "neutral":
-                control.Neutral()
             elif ai == "anger":
                 control.Anger()
             elif ai == "happy":
@@ -108,9 +105,6 @@ while(True):
         break
 
 # When everything done, release the capture
-servo.stop()
-GPIO.cleanup()
-
 cap.release()
 cv2.destroyAllWindows()
 

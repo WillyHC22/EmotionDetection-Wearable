@@ -55,11 +55,22 @@ class MovementControl():
             time.sleep(0.02)
         elif speed == "fast": 
             time.sleep(0.01)
+    
 
+    def tremble(self, angle, depth, interval):
+        """Add trembling for anger; Interval should be higher than depth"""
+        #Create index for trembling
+        if angle % interval == 0:
+            L = [i for i in range(depth+1)]
+            indexes = L[1:depth] + L[::-1]
+            for index in indexes :
+                self.rotation(angle-index, "fast")
+            
 
     def Sadness(self):
         self.start_servo()
         print("You look sad... ):")
+
         # The -120 should depend on positioning. 
         for angle in range(120):
             self.rotation(angle, "slow")
@@ -69,6 +80,7 @@ class MovementControl():
     def Happy(self):
         self.start_servo()
         print("You look happy ! =)")
+
         for angle in range(120):
             self.rotation(angle, "medium")
         self.stop_servo()
@@ -77,7 +89,11 @@ class MovementControl():
     def Anger(self):
         self.start_servo()
         print("You look angry !")
-        # TO-DO : Add trembling
+
+        depth = self.args["depth"]
+        interval = self.args["interval"]
         for angle in range(40):
             self.rotation(angle, "fast")
+            #Add trembling
+            self.tremble(angle, depth, interval)
         self.stop_servo()
