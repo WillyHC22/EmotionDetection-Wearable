@@ -1,9 +1,9 @@
+from utils.utils import brain
 import cv2
 import tensorflow as tf
 import numpy as np
 
 from utils.argparser import get_parser
-from utils.utils import brain
 from src.control import MovementControl
 from src.control_test import TestMovementControl, TestMovementControl_1
 
