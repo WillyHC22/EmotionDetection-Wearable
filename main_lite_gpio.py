@@ -1,10 +1,11 @@
-from skimage.transform import resize
 import cv2
 import tensorflow as tf
 import numpy as np
 
 from utils.argparser import get_parser
 from src.control import MovementControl
+from skimage.transform import resize
+
 
 
 args = get_parser()

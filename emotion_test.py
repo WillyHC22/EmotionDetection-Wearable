@@ -4,6 +4,7 @@ from utils.argparser import get_parser
 if __name__ == '__main__':
     args = get_parser()
     if args["sadness"]:
+        print("Sadness argument")
         test_control = TestMovementControl_1(args)
         test_control.Sadness()
 
