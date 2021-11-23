@@ -12,6 +12,9 @@ if __name__ == '__main__':
 
     args = get_parser()
 
+    # Connecting the movement control
+    test_control = TestMovementControl_1(args)
+
     print('Loading ..')
 
     f = tf.lite.Interpreter("/home/pi/Desktop/CAFA_Wearable/models/model_optimized.tflite")
@@ -53,7 +56,6 @@ if __name__ == '__main__':
             if ct > args["update_interval"]:
                 
                 #Connecting to servo and everything
-                test_control = TestMovementControl_1(args)
 
                 ai = brain(gray, x, y, w, h, f, i, o)
                 ## Mechanical move here 

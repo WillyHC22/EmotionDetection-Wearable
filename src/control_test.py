@@ -70,13 +70,13 @@ class TestMovementControl_1():
         print("You look sad... ):")
 
         # The -120 should depend on positioning. 
-        for _ in range(10):
-            for angle in range(120):
-                self.rotation(angle, "slow")
-            L = [i for i in range(120)]
-            L = L[::-1]
-            for angle in L:
-                self.rotation(angle, "slow")
+
+        for angle in range(120):
+            self.rotation(angle, "slow")
+        # L = [i for i in range(120)]
+        # L = L[::-1]
+        # for angle in L:
+        #     self.rotation(angle, "slow")
 
         self.stop_servo()
         
