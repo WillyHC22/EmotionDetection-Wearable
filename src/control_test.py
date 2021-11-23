@@ -35,6 +35,7 @@ class TestMovementControl_1():
         init_duty = self.args["init_duty"] ## set to 0 by default
 
         self.servo1.start(init_duty)
+        print("Connecting succesful !")
 
 
     def stop_servo(self):
@@ -47,9 +48,9 @@ class TestMovementControl_1():
         duty = (1./18.)*angle + 2.
         self.servo1.ChangeDutyCycle(duty)
         if speed == "slow":
-            time.sleep(0.05)
+            time.sleep(0.1)
         elif speed == "medium":
-            time.sleep(0.02)
+            time.sleep(0.015)
         elif speed == "fast": 
             time.sleep(0.01)
     
@@ -69,8 +70,14 @@ class TestMovementControl_1():
         print("You look sad... ):")
 
         # The -120 should depend on positioning. 
-        for angle in range(120):
-            self.rotation(angle, "slow")
+        for _ in range(10):
+            for angle in range(120):
+                self.rotation(angle, "slow")
+            L = [i for i in range(120)]
+            L = L[::-1]
+            for angle in L:
+                self.rotation(angle, "slow")
+
         self.stop_servo()
         
 
