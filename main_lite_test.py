@@ -53,7 +53,7 @@ if __name__ == '__main__':
             if ct > args["update_interval"]:
                 
                 #Connecting to servo and everything
-                test_control = TestMovementControl_1()
+                test_control = TestMovementControl_1(args)
 
                 ai = brain(gray, x, y, w, h, f, i, o)
                 ## Mechanical move here 
