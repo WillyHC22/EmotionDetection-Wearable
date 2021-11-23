@@ -15,7 +15,6 @@ def get_parser():
     parser.add_argument("-sp", "--servo_pin", type=int, default=8, help="pin used on raspberry board")
     parser.add_argument("-ct", "--update_interval", default=3, help="Time interval between two updates for the emotion detection")
     parser.add_argument("-ts", "--time_sleep", default=1, help="Time sleeping between each movement of the servo")
-    parser.add_argument("--stabilize", action="store_true", help = "Use this to test the stabilized version")
 
     parser.add_argument("-sad", "--sadness", action="store_true", help="For sad emotion")
     parser.add_argument("-happy", "--happiness", action="store_true", help="For happy emotion")
