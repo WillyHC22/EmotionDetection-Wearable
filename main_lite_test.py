@@ -5,7 +5,7 @@ import numpy as np
 from utils.argparser import get_parser
 from utils.utils import brain
 from src.control import MovementControl
-from src.control_test import TestMovementControl
+from src.control_test import TestMovementControl, TestMovementControl_1
 
 
 if __name__ == '__main__':
@@ -53,7 +53,7 @@ if __name__ == '__main__':
             if ct > args["update_interval"]:
                 
                 #Connecting to servo and everything
-                test_control = TestMovementControl()
+                test_control = TestMovementControl_1()
 
                 ai = brain(gray, x, y, w, h, f, i, o)
                 ## Mechanical move here 
