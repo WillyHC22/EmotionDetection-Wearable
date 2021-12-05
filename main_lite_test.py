@@ -13,16 +13,18 @@ if __name__ == '__main__':
     args = get_parser()
 
     # Connecting the movement control
-    test_control = TestMovementControl_1(args)
+    #test_control = TestMovementControl_1(args)
 
-    print('Loading ..')
+    control = MovementControl(args)
+
+    print('Loading the model...')
 
     f = tf.lite.Interpreter("/home/pi/Desktop/CAFA_Wearable/models/model_optimized.tflite")
     f.allocate_tensors()
     i = f.get_input_details()[0]
     o = f.get_output_details()[0]
 
-    print('Load Success !')
+    print('Loading Successful !')
 
     cascPath = "/home/pi/Desktop/CAFA_Wearable/haarcascade_frontalface_default.xml"
 
@@ -60,11 +62,17 @@ if __name__ == '__main__':
                 ai = brain(gray, x, y, w, h, f, i, o)
                 ## Mechanical move here 
                 if ai == "sadness":
-                    test_control.Sadness()
+                    #test_control.Sadness()
+                    control.Sadness()
+
                 elif ai == "anger":
-                    test_control.Anger()
+                    #test_control.Anger()
+                    control.Anger()
+
                 elif ai == "happy":
-                    test_control.Happy()
+                    #test_control.Happy()
+                    control.Happy()
+                    
                 ct = 0
 
         # Display the resulting frame
@@ -75,5 +83,3 @@ if __name__ == '__main__':
     # When everything done, release the capture
     cap.release()
     cv2.destroyAllWindows()
-
-

@@ -13,6 +13,12 @@ class MovementControl():
         self.pin3 = args["servo_pin3"]
         self.pin4 = args["servo_pin4"]
 
+        self.nrep = args["repetition"]
+        self.depth = self.args["depth"]
+        self.interval = self.args["interval"]
+
+        GPIO.cleanup()
+
         GPIO.setmode(GPIO.BOARD)
 
         GPIO.setup(self.pin1, GPIO.OUT)
@@ -50,9 +56,9 @@ class MovementControl():
         self.servo3.ChangeDutyCycle(duty)
         self.servo4.ChangeDutyCycle(duty)
         if speed == "slow":
-            time.sleep(0.05)
+            time.sleep(0.1)
         elif speed == "medium":
-            time.sleep(0.02)
+            time.sleep(0.015)
         elif speed == "fast": 
             time.sleep(0.01)
     
@@ -65,15 +71,22 @@ class MovementControl():
             indexes = L[1:depth] + L[::-1]
             for index in indexes :
                 self.rotation(angle-index, "fast")
-            
+
 
     def Sadness(self):
         self.start_servo()
         print("You look sad... ):")
 
-        # The -120 should depend on positioning. 
-        for angle in range(120):
-            self.rotation(angle, "slow")
+        #
+        for _ in range(self.nrep):
+            for angle in range(120):
+                self.rotation(angle, "slow")
+
+            L = [i for i in range(120)]
+            L = L[::-1]
+            for angle in L:
+                self.rotation(angle, "slow")
+
         self.stop_servo()
         
 
@@ -81,8 +94,15 @@ class MovementControl():
         self.start_servo()
         print("You look happy ! =)")
 
-        for angle in range(120):
-            self.rotation(angle, "medium")
+        for _ in range(self.nrep):
+            for angle in range(120):
+                self.rotation(angle, "medium")
+
+            L = [i for i in range(120)]
+            L = L[::-1]
+            for angle in L:
+                self.rotation(angle, "medium")
+
         self.stop_servo()
 
 
@@ -90,10 +110,68 @@ class MovementControl():
         self.start_servo()
         print("You look angry !")
 
-        depth = self.args["depth"]
-        interval = self.args["interval"]
-        for angle in range(40):
-            self.rotation(angle, "fast")
-            #Add trembling
-            self.tremble(angle, depth, interval)
+        for _ in range(self.nrep):
+
+            for angle in range(40):
+                self.rotation(angle, "fast")
+                #Add trembling
+                self.tremble(angle, self.depth, self.interval)
+
+            L = [i for i in range(40)]
+            L = L[::-1]
+            for angle in L:
+                self.rotation(angle, "fast")
+                self.tremble(angle, self.depth, self.interval, reverse = True)
+
+        self.stop_servo()
+
+#==============================================================================================
+#==============================================================================================
+#==============================================================================================
+# Testing with the moving function
+#==============================================================================================
+#==============================================================================================
+#==============================================================================================
+
+    def servo_moving(self, angle_max, speed, with_tremble = False):
+        
+        #nrep is the number of back and forth done by the servo
+        for _ in range(self.nrep):
+            for angle in range(angle_max):
+                self.rotation(angle, speed)
+                if with_tremble:
+                    self.tremble(angle, self.depth, self.interval)
+
+            reverse_angles = [i for i in range(120)]
+            reverse_angles = reverse_angles[::-1]
+            for angle in reverse_angles:
+                self.rotation(angle, speed)
+                if with_tremble:
+                    self.tremble(angle, self.depth, self.interval, reverse = True)
+
+
+    def Sadness_move(self):
+        self.start_servo()
+        print("You look sad... =(")
+
+        self.servo_moving(120, "slow", with_tremble = False)
+
+        self.stop_servo()
+        
+
+    def Happy_move(self):
+        self.start_servo()
+        print("You look happy ! =)")
+
+        self.servo_moving(120, "medium", with_tremble = False)
+
+        self.stop_servo()
+
+
+    def Anger_move(self):
+        self.start_servo()
+        print("You look angry ! è_é")
+
+        self.servo_moving(40, "fast", with_tremble = True)
+
         self.stop_servo()

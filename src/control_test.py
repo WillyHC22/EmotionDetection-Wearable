@@ -55,14 +55,18 @@ class TestMovementControl_1():
             time.sleep(0.01)
     
 
-    def tremble(self, angle, depth, interval):
+    def tremble(self, angle, depth, interval, inverse=False):
         """Add trembling for anger; Interval should be higher than depth"""
         #Create index for trembling
         if angle % interval == 0:
             L = [i for i in range(depth+1)]
             indexes = L[1:depth] + L[::-1]
-            for index in indexes :
-                self.rotation(angle-index, "fast")
+            if inverse:
+                for index in indexes :
+                    self.rotation(angle+index, "fast")
+            else:
+                for index in indexes :
+                    self.rotation(angle-index, "fast")
             
 
     def Sadness(self):
