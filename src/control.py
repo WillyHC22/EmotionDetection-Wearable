@@ -14,8 +14,8 @@ class MovementControl():
         self.pin4 = args["servo_pin4"]
 
         self.nrep = args["repetition"]
-        self.depth = self.args["depth"]
-        self.interval = self.args["interval"]
+        self.depth = args["depth"]
+        self.interval = args["interval"]
 
         GPIO.cleanup()
 
