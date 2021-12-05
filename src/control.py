@@ -45,8 +45,8 @@ class MovementControl():
         self.servo2.stop()
         self.servo3.stop()
         self.servo4.stop()
-
         GPIO.cleanup()
+        print("End of process, cleaning GPIO")
 
 
     def rotation(self, angle, speed):
