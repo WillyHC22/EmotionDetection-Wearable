@@ -95,10 +95,10 @@ class MovementControl():
         print("You look happy ! =)")
 
         for _ in range(self.nrep):
-            for angle in range(120):
+            for angle in range(160):
                 self.rotation(angle, "medium")
 
-            L = [i for i in range(120)]
+            L = [i for i in range(160)]
             L = L[::-1]
             for angle in L:
                 self.rotation(angle, "medium")
