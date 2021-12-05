@@ -1,6 +1,6 @@
 import time
 from utils.argparser import get_parser
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 
 ##Testing GPIO
 args = get_parser()
