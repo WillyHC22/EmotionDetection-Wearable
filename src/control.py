@@ -121,7 +121,7 @@ class MovementControl():
             L = L[::-1]
             for angle in L:
                 self.rotation(angle, "fast")
-                self.tremble(angle, self.depth, self.interval, reverse = True)
+                self.tremble(angle, self.depth, self.interval)
 
         self.stop_servo()
 
