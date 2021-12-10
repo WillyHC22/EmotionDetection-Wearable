@@ -2,19 +2,29 @@
   <img  src="https://user-images.githubusercontent.com/25025173/51177457-37460a00-18f2-11e9-8858-9c51f6c987a1.gif">
 </p>
 
-this repo contain emotion recognition model that light weight, fast, and accurate.
+-	Emotion detection
 
-### How i made it ..
+Credit to: https://github.com/hfahrudin/FastEmotRecognition for the emotion recognition model
 
-This is model use mobilenetv2 as architecture. I work on how this architecture can run in low spec devices. I tried this model with modification on Raspberry pi 3. 
+The emotion detection model uses the mobilenetv2 model architecture, and it is trained on affectnet, jaffe and ck+ datasets. The model is converted to tf-lite model for smoother use on raspberry pi 3. The current model can classify 7 different emotions (neutral, happy, sad, angry, disgust, fear, surprise), but we only use three of those for our current project (happy, sad, angry).
 
-Dataset that i used is affectnet, jaffe, ck+, and picked an image from google search. I train 3 architecture which are inception, vgg16, and mobilenetv2. If i run trained model in pc (i5 gen 7th), there are no noticeable difference between those models. But, when i run them on raspberry pi3, there are huge difference in fps. 
+-	Hat movement 
 
-Inception and VGG16 averaging around 0.05 fps (i should have make documentation of it, mybad). Mobilenetv2 around 0.5 fps which is very good improvement. {erformance wise, there are no significant error but, i notice mobilenetv2 have slightly better performance compare to other models. 
+We are using 4 micro servos (MG90S) to control the movement of the hat through the RPi.GPIO library. The hat is designed as follow :
+<p align="center">
+  <img  src="https://user-images.githubusercontent.com/91775734/145547381-41a32b53-d967-483b-87f4-05ca813f9fcd.png">
+</p>
 
-To fit my implementation, i use tensorflow-lite to boost my fps. I got 3 fps after converting my tensorflow model to tf-lite model. It's tricky to install tensorflow + tflite in raspi 3 so feel free to ask me.
+The motor 1 and 3 should be linked respectively to pin 9 (variable name pin1) and pin 11 (variable name pin2)
+
+The motor 2 and 4 should be linked respectively to pin 12 (variable name pin3) and pin 13 (variable name pin4)
+
+Those can be changed at any time by precising the argument -pinX (X = 1,2,3,4) when running the main code.
+
+main_lite_test.py is the script to run the whole pipeline (emotion detection through the camera + hat movement accordingly). Make sure to have a camera connected, as well as all 4 servos on the correct pin number (using board numeration) of the raspberry pi. 
 
 Dependencies:
-1. python 3.5
+1. python 3.8
 2. tensorflow + tflite for raspberry pi
 3. opencv 3.2
+4. RPi.GPIO 0.7.0
