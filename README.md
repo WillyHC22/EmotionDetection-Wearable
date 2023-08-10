@@ -1,6 +1,4 @@
-<p align="center">
-  <img  src="https://user-images.githubusercontent.com/25025173/51177457-37460a00-18f2-11e9-8858-9c51f6c987a1.gif">
-</p>
+Project to integrate an existing compressed emotion detection model into a Raspberry Pi 3.0, enabling the control of several servo-motors to move a wearable device.
 
 -	Emotion detection
 
