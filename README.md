@@ -21,7 +21,7 @@ Those can be changed at any time by precising the argument -pinX (X = 1,2,3,4) w
 
 To run the whole pipeline (emotion detection through the camera + hat movement accordingly):
 ```
-main_lite_test.py 
+python3 main_lite_test.py 
 ```
 
 Make sure to have a camera connected, as well as all 4 servos on the correct pin number (using board numeration) of the raspberry pi. 
