@@ -19,7 +19,12 @@ The motor 2 and 4 should be linked respectively to pin 12 (variable name pin3) a
 
 Those can be changed at any time by precising the argument -pinX (X = 1,2,3,4) when running the main code.
 
-main_lite_test.py is the script to run the whole pipeline (emotion detection through the camera + hat movement accordingly). Make sure to have a camera connected, as well as all 4 servos on the correct pin number (using board numeration) of the raspberry pi. 
+To run the whole pipeline (emotion detection through the camera + hat movement accordingly):
+```
+main_lite_test.py 
+```
+
+Make sure to have a camera connected, as well as all 4 servos on the correct pin number (using board numeration) of the raspberry pi. 
 
 Dependencies:
 1. python 3.8
